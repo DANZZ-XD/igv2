@@ -186,7 +186,7 @@ def user_agentAPI():
 	return USER_AGENT_BASE
 
 class instagramAPI:
-	API_URL = 'https://i.instagram.com/api'
+	API_URL = 'https:/www.instagram.com/api'
 	DEVICE_SETTINTS = {'manufacturer': 'Xiaomi',
 		'model': 'HM 1SW',
 		'android_version': 18,
@@ -242,7 +242,7 @@ class instagramAPI:
 			self.generateUUID(False),
 			urllib.request.quote(self.data)
 		)
-		x=self.s.post("https://i.instagram.com/api/accounts/login/", self.payload)
+		x=self.s.post("https://i.instagram.com/accounts/login/", self.payload)
 		x_jason=json.loads(x.text)
 		x_kukis=x.cookies.get_dict()
 		if "logged_in_user" in x.text:
@@ -314,7 +314,7 @@ class instagram:
 			self.Exit()
 
 	def sixAPI(self,six_id):
-		url = "https://www.instagram.com/web/search/topsearch/?context=blended&query="+six_id+"&rank_token=0.3953592318270893&count=1"
+		url = "https://www.instagram.com/explore/?context=blended&query="+six_id+"&rank_token=0.3953592318270893&count=1"
 		x = requests.get(url)
 		x_jason = x.json()
 		uid = str( x_jason['users'][0].get("user").get("pk") )
@@ -339,12 +339,12 @@ class instagram:
 		self.payload = 'signed_body={}.{}&ig_sig_key_version=4'.format(
 			self.generateUUID(False),
 			urllib.request.quote(data))
-		return s.post('https://i.instagram.com/api/friendships/destroy/%s/'%(user_id),self.payload,cookies=cookie).text
+		return s.post('https://i.instagram.com/friendships/destroy/%s/'%(user_id),self.payload,cookies=cookie).text
 
 
 	def searchAPI(self,cookie,nama):
 		try:
-			x=s.get('https://www.instagram.com/web/search/topsearch/?count=100000&context=blended&query=%s&rank_token=0.21663777590422106&include_reel=true'%(nama),cookies=cookie,headers={"user-agent":USN})
+			x=s.get('https://www.instagram.com/explore/?count=100000&context=blended&query=%s&rank_token=0.21663777590422106&include_reel=true'%(nama),cookies=cookie,headers={"user-agent":USN})
 			x_jason=json.loads(x.text)
 			for i in x_jason['users']:
 				user=i['user']
@@ -498,7 +498,7 @@ class instagram:
 					"stopDeletionNonce": "",
 					"trustedDeviceRecords": {}}
 
-				x=s.post("https://www.instagram.com/accounts/login/ajax/",headers=headers,data=param)
+				x=s.post("https://www.instagram.com/accounts/login/",headers=headers,data=param)
 				x_jason=json.loads(x.text)
 				if "userId" in str(x_jason):
 					nama,pengikut,mengikut,postingan=self.APIinfo(user)
@@ -569,7 +569,7 @@ class instagram:
 				"stopDeletionNonce": "",
 				"trustedDeviceRecords": {}
 			}
-			x=s.post("https://www.instagram.com/accounts/login/ajax/",data=param);sleep(1)
+			x=s.post("https://www.instagram.com/accounts/login/",data=param);sleep(1)
 			x_jason=json.loads(x.text)
 			if "userId" in x.text:
 				nama,pengikut,mengikut,postingan=self.APIinfo(user)
@@ -617,7 +617,7 @@ class instagram:
 			m=input(f' [{M}?{C}] Masukan username instagram: ')
 
 			id=self.idAPI(self.cookie,m)
-			info=self.infoAPI(self.cookie,'https://i.instagram.com/api/v1/friendships/%s/followers/?count=100000',id)
+			info=self.infoAPI(self.cookie,'https://i.instagram.com/api/v1/friendships/%s/following/?count=100000',id)
 			self.passwordAPI(info)
 
 		elif c in ('3','03'):
